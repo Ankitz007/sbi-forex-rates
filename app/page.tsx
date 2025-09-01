@@ -3,7 +3,6 @@
 import { useState, useEffect } from "react";
 import { format } from "date-fns";
 import { Search, X } from "lucide-react";
-import { motion, AnimatePresence } from "framer-motion";
 import { Header } from "@/components/header";
 import { Footer } from "@/components/footer";
 import { DatePicker } from "@/components/date-picker";
@@ -116,34 +115,36 @@ export default function Home() {
               </div>
 
               {/* Mobile overlay search (absolute, so it doesn't push/wrap) */}
-              <AnimatePresence>
-                {isSearchOpen && (
-                  <motion.div
-                    initial={{ opacity: 0, y: -8 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0, y: -8 }}
-                    transition={{ duration: 0.2 }}
-                    className="sm:hidden absolute inset-x-0 top-0 z-50"
+              {isSearchOpen && (
+                <div className="sm:hidden absolute inset-x-0 top-0 z-50">
+                  <div
+                    className={`
+                                flex items-center gap-2 bg-background border rounded-xl p-2 shadow-md
+                                transition-all duration-200 ease-in-out
+                                ${
+                                  isSearchOpen
+                                    ? "opacity-100 translate-y-0"
+                                    : "opacity-0 -translate-y-2"
+                                }
+                              `}
                   >
-                    <div className="flex items-center gap-2 bg-background border rounded-xl p-2 shadow-md">
-                      <Input
-                        autoFocus
-                        placeholder="Search currency or ticker..."
-                        value={searchTerm}
-                        onChange={(e) => setSearchTerm(e.target.value)}
-                        className="flex-1 placeholder:text-xs"
-                      />
-                      <button
-                        onClick={() => setIsSearchOpen(false)}
-                        className="p-2 rounded-full hover:bg-muted shrink-0"
-                        aria-label="Close search"
-                      >
-                        <X className="h-5 w-5 text-muted-foreground" />
-                      </button>
-                    </div>
-                  </motion.div>
-                )}
-              </AnimatePresence>
+                    <Input
+                      autoFocus
+                      placeholder="Search currency or ticker..."
+                      value={searchTerm}
+                      onChange={(e) => setSearchTerm(e.target.value)}
+                      className="flex-1 placeholder:text-xs"
+                    />
+                    <button
+                      onClick={() => setIsSearchOpen(false)}
+                      className="p-2 rounded-full hover:bg-muted shrink-0"
+                      aria-label="Close search"
+                    >
+                      <X className="h-5 w-5 text-muted-foreground" />
+                    </button>
+                  </div>
+                </div>
+              )}
             </div>
           </div>
 

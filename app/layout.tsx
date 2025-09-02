@@ -14,7 +14,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "SBI Forex Rates",
+  title: "Historical SBI Forex Rates",
   description: "Historical forex rates from State Bank of India",
 };
 

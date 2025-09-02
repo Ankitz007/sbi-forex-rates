@@ -20,6 +20,7 @@ import {
   PaginationPrevious,
 } from "@/components/ui/pagination";
 import { ForexRateResponse } from "@/types/api";
+import { CurrencyFlag } from "@/components/utils/country-mapping";
 
 interface ForexTableProps {
   data: ForexRateResponse[];
@@ -188,7 +189,12 @@ export function ForexTable({ data, category, searchTerm }: ForexTableProps) {
                       : "hover:bg-muted/50"
                   }
                 >
-                  <TableCell className="font-medium">{item.currency}</TableCell>
+                  <TableCell className="font-medium">
+                    <div className="flex items-center gap-2">
+                      <CurrencyFlag ticker={item.ticker} className="w-5 h-4" />
+                      <span>{item.currency}</span>
+                    </div>
+                  </TableCell>
                   <TableCell className="font-semibold text-primary">
                     {item.ticker}
                   </TableCell>

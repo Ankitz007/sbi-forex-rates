@@ -75,6 +75,13 @@ export function ForexDataDisplay({
 
     return (
       <div className="space-y-6">
+        <div className="text-center mb-2">
+          <h2 className="text-sm font-semibold text-foreground">
+            {category === "below_10"
+              ? "Transactions Below ₹10 Lakhs"
+              : "Transactions Between ₹10-20 Lakhs"}
+          </h2>
+        </div>
         <ForexTable
           data={categoryData}
           category={category}
@@ -96,8 +103,8 @@ export function ForexDataDisplay({
               className="text-sm px-4 py-2"
             >
               {category === "below_10"
-                ? "Txns Below ₹10 Lakhs"
-                : "Txns Between ₹10-20 Lakhs"}
+                ? "Transactions Below ₹10 Lakhs"
+                : "Transactions Between ₹10-20 Lakhs"}
             </TabsTrigger>
           ))}
         </TabsList>

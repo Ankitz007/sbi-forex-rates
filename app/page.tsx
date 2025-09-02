@@ -7,6 +7,8 @@ import { Header } from "@/components/header";
 import { Footer } from "@/components/footer";
 import { DatePicker } from "@/components/date-picker";
 import { ForexDataDisplay } from "@/components/forex-data-display";
+import { RegulatoryAlert } from "@/components/regulatory-alert";
+import { NotesCallout } from "@/components/notes-callout";
 import { Input } from "@/components/ui/input";
 import {
   ForexRateResponse,
@@ -60,21 +62,7 @@ export default function Home() {
 
       <main className="flex-1 container mx-auto px-4 py-8">
         <div className="space-y-8">
-          <div className="text-justify space-y-4">
-            <div className="mx-auto text-sm sm:text-base text-muted-foreground leading-relaxed space-y-4">
-              <p>
-                As per the Income-tax Rules, 1962, the rate of exchange used for
-                reporting all foreign income/assets should be the telegraphic
-                transfer (TT) buying rate adopted by the State Bank of India
-                (SBI). The SBI publishes these rates online for any given day.
-                However, it does not maintain a historical archive of the rates.
-                This website aims to independently maintain a historical archive
-                of the official forex rates published daily by the SBI, from 1st
-                January 2022 onwards. These rates are taken from the "To be used
-                as reference rates" section of the SBI publication.
-              </p>
-            </div>
-          </div>
+          <RegulatoryAlert />
 
           {/* Sticky Date Picker Section */}
           <div className="sticky top-0 z-40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 mb-0 py-4">
@@ -155,6 +143,11 @@ export default function Home() {
             searchTerm={searchTerm}
             onSearchChange={setSearchTerm}
           />
+
+          {/* Notes Callout - only show when we have forex data */}
+          {Object.keys(forexData).length > 0 && (
+            <NotesCallout data={forexData} />
+          )}
         </div>
       </main>
 

@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { format, subDays } from "date-fns";
+import { format, subDays, parse, isValid } from "date-fns";
 import { CalendarIcon } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
@@ -22,11 +22,47 @@ export function DatePicker({ selectedDate, onDateChange }: DatePickerProps) {
   // Get yesterday as the maximum selectable date
   const yesterday = subDays(new Date(), 1);
 
-  // Set default to yesterday when component mounts if no date is selected
+  // Set default to the last available date from /check-dates (from yesterday-10 to yesterday).
+  // If the API fails or returns no usable date, fall back to yesterday.
   useEffect(() => {
-    if (!selectedDate) {
-      onDateChange(yesterday);
+    if (selectedDate) return;
+
+    let cancelled = false;
+
+    async function pickDefaultDate() {
+      try {
+        const start = subDays(yesterday, 10);
+        const from = format(start, "dd-MM-yyyy");
+        const to = format(yesterday, "dd-MM-yyyy");
+
+        const res = await fetch(`/api/forex/check-dates?from=${from}&to=${to}`);
+        if (!res.ok) throw new Error(`status=${res.status}`);
+
+        const body = await res.json();
+        const dates = Array.isArray(body?.data) ? body.data : [];
+
+        if (dates.length > 0) {
+          // API returns dates in descending order; take the last item (oldest available)
+          const last = dates[dates.length - 1];
+          const parsed = parse(last, "dd-MM-yyyy", new Date());
+          if (isValid(parsed)) {
+            if (!cancelled) onDateChange(parsed);
+            return;
+          }
+        }
+
+        // fallback
+        if (!cancelled) onDateChange(yesterday);
+      } catch (err) {
+        if (!cancelled) onDateChange(yesterday);
+      }
     }
+
+    pickDefaultDate();
+
+    return () => {
+      cancelled = true;
+    };
   }, [selectedDate, onDateChange, yesterday]);
 
   const handleDateSelect = (date: Date | undefined) => {

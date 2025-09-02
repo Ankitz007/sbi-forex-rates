@@ -8,7 +8,7 @@ export function Footer() {
         <Alert className="border-dashed">
           <AlertTriangle className="h-4 w-4" />
           <AlertDescription className="text-sm leading-relaxed">
-            <strong className="text-foreground">Disclaimer:</strong>{" "}
+            <strong className="text-foreground">Disclaimer</strong>{" "}
             <span className="text-muted-foreground">
               This website is not associated with the State Bank of India or any
               of its subsidiaries in any way whatsoever. While critical efforts

@@ -10,7 +10,7 @@ export function Header() {
   return (
     <header className="border-b">
       <div className="container mx-auto px-4 py-4 flex items-center justify-between">
-        <h1 className="text-2xl font-bold">SBI Forex Rates</h1>
+        <h1 className="text-xl font-bold">Historical SBI Forex Rates</h1>
 
         <div className="flex items-center gap-2">
           <Button variant="ghost" size="icon" asChild>

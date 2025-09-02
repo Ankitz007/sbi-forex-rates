@@ -53,7 +53,7 @@ export function DatePicker({ selectedDate, onDateChange }: DatePickerProps) {
 
         // fallback
         if (!cancelled) onDateChange(yesterday);
-      } catch (err) {
+      } catch {
         if (!cancelled) onDateChange(yesterday);
       }
     }

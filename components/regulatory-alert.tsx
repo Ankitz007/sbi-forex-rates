@@ -3,7 +3,7 @@ import { Info, AlertTriangle } from "lucide-react";
 
 export function RegulatoryAlert() {
   return (
-    <div className="flex flex-col lg:flex-row gap-4 lg:gap-6">
+    <div className="flex flex-col lg:flex-row gap-4 lg:gap-6 my-2">
       {/* Regulatory Note Alert */}
       <Alert className="border-dashed flex-1 bg-muted/30">
         <Info className="h-4 w-4" />

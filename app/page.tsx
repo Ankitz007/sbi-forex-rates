@@ -20,6 +20,7 @@ export default function Home() {
   const [selectedDate, setSelectedDate] = useState<Date | undefined>();
   const [forexData, setForexData] = useState<ForexDataByCategory>({});
   const [isLoading, setIsLoading] = useState(false);
+  const [isInitializing, setIsInitializing] = useState(true);
   const [searchTerm, setSearchTerm] = useState("");
   const [isSearchOpen, setIsSearchOpen] = useState(false);
 
@@ -52,6 +53,7 @@ export default function Home() {
 
   useEffect(() => {
     if (selectedDate) {
+      setIsInitializing(false);
       fetchForexData(selectedDate);
     }
   }, [selectedDate]);
@@ -60,10 +62,10 @@ export default function Home() {
     <div className="min-h-screen flex flex-col">
       <Header />
 
-      <main className="flex-1 container mx-auto px-4 py-8">
+      <main className="flex-1 container mx-auto px-4 py-4">
         <div className="space-y-8">
           <RegulatoryAlert />
-
+          
           {/* Sticky Date Picker Section */}
           <div className="sticky top-0 z-40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 mb-0 py-4">
             {/* relative wrapper so the mobile overlay can be absolutely positioned */}
@@ -139,6 +141,7 @@ export default function Home() {
           <ForexDataDisplay
             data={forexData}
             isLoading={isLoading}
+            isInitializing={isInitializing}
             selectedDate={selectedDate}
             searchTerm={searchTerm}
             onSearchChange={setSearchTerm}
@@ -150,7 +153,6 @@ export default function Home() {
           )}
         </div>
       </main>
-
       <Footer />
     </div>
   );

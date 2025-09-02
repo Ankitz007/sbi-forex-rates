@@ -34,7 +34,7 @@ type SortDirection = "asc" | "desc";
 const ITEMS_PER_PAGE = 10;
 const PRIORITY_CURRENCIES = ["USD", "EUR", "GBP", "JPY"];
 
-export function ForexTable({ data, category, searchTerm }: ForexTableProps) {
+export function ForexTable({ data, searchTerm }: ForexTableProps) {
   const [sortField, setSortField] = useState<SortField | null>(null);
   const [sortDirection, setSortDirection] = useState<SortDirection>("asc");
   const [currentPage, setCurrentPage] = useState(1);
@@ -46,7 +46,7 @@ export function ForexTable({ data, category, searchTerm }: ForexTableProps) {
 
   // Filter and sort data
   const { filteredAndSortedData, totalPages } = useMemo(() => {
-    let filtered = data.filter(
+    const filtered = data.filter(
       (item) =>
         item.currency.toLowerCase().includes(searchTerm.toLowerCase()) ||
         item.ticker.toLowerCase().includes(searchTerm.toLowerCase())

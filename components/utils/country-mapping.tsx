@@ -57,13 +57,18 @@ export const CurrencyFlag: React.FC<{ ticker: string; className?: string }> = ({
   }
 
   // Get the flag component from the imported flags
-  const FlagComponent = (CountryFlags as any)[countryCode];
+  const flags = CountryFlags as unknown as Record<
+    string,
+    React.ComponentType<React.SVGProps<SVGSVGElement>>
+  >;
+  const FlagComponent = countryCode ? flags[countryCode] : undefined;
 
   if (FlagComponent) {
     return (
       <FlagComponent
         className={`${className} rounded-sm`}
-        title={`${ticker} flag`}
+        role="img"
+        aria-label={`${ticker} flag`}
       />
     );
   }

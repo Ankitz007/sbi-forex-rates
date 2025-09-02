@@ -14,7 +14,7 @@ export interface ForexRateResponse {
   category: "below_10" | "10_to_20";
 }
 
-export interface StandardResponse<T = any> {
+export interface StandardResponse<T> {
   success: boolean;
   data: T;
   message?: string;

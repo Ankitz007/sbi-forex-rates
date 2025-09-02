@@ -8,6 +8,7 @@ import { ForexDataByCategory } from "@/types/api";
 interface ForexDataDisplayProps {
   data: ForexDataByCategory;
   isLoading: boolean;
+  isInitializing: boolean;
   selectedDate: Date | undefined;
   searchTerm: string;
   onSearchChange: (term: string) => void;
@@ -16,13 +17,13 @@ interface ForexDataDisplayProps {
 export function ForexDataDisplay({
   data,
   isLoading,
+  isInitializing,
   selectedDate,
   searchTerm,
-  onSearchChange,
 }: ForexDataDisplayProps) {
   const categories = Object.keys(data) as Array<keyof ForexDataByCategory>;
 
-  if (isLoading) {
+  if (isLoading || isInitializing) {
     return (
       <div className="flex items-center justify-center py-12">
         <div className="text-center">
@@ -74,7 +75,7 @@ export function ForexDataDisplay({
     }
 
     return (
-      <div className="space-y-6">
+      <div className="space-y-6 mb-4">
         <div className="text-center mb-2">
           <h2 className="text-sm font-semibold text-foreground">
             {category === "below_10"
@@ -92,7 +93,7 @@ export function ForexDataDisplay({
   }
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-6 mb-4">
       {/* Tabs */}
       <Tabs defaultValue={categories[0]} className="w-full">
         <TabsList className="grid w-full grid-cols-1 sm:grid-cols-2 h-auto">

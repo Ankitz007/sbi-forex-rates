@@ -2,10 +2,12 @@ import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
   async rewrites() {
+    const FOREX_API_HOST = process.env.FOREX_API_HOST;
+
     return [
       {
         source: "/api/forex/:path*",
-        destination: "https://sbi-forex-rates-api.vercel.app/:path*",
+        destination: `${FOREX_API_HOST}/:path*`,
       },
     ];
   },

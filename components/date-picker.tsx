@@ -19,11 +19,11 @@ interface DatePickerProps {
 
 export function DatePicker({ selectedDate, onDateChange }: DatePickerProps) {
   const [isOpen, setIsOpen] = useState(false);
-  // Get yesterday as the maximum selectable date
-  const yesterday = subDays(new Date(), 1);
+  // Get today as the maximum selectable date
+  const today = new Date();
 
-  // Set default to the last available date from /check-dates (from yesterday-10 to yesterday).
-  // If the API fails or returns no usable date, fall back to yesterday.
+  // Set default to the last available date from /check-dates (from today-10 to today).
+  // If the API fails or returns no usable date, fall back to today.
   useEffect(() => {
     if (selectedDate) return;
 
@@ -31,9 +31,9 @@ export function DatePicker({ selectedDate, onDateChange }: DatePickerProps) {
 
     async function pickDefaultDate() {
       try {
-        const start = subDays(yesterday, 10);
+        const start = subDays(today, 10);
         const from = format(start, "dd-MM-yyyy");
-        const to = format(yesterday, "dd-MM-yyyy");
+        const to = format(today, "dd-MM-yyyy");
 
         const res = await fetch(`/api/forex/check-dates?from=${from}&to=${to}`);
         if (!res.ok) throw new Error(`status=${res.status}`);
@@ -52,9 +52,9 @@ export function DatePicker({ selectedDate, onDateChange }: DatePickerProps) {
         }
 
         // fallback
-        if (!cancelled) onDateChange(yesterday);
+        if (!cancelled) onDateChange(today);
       } catch {
-        if (!cancelled) onDateChange(yesterday);
+        if (!cancelled) onDateChange(today);
       }
     }
 
@@ -63,7 +63,7 @@ export function DatePicker({ selectedDate, onDateChange }: DatePickerProps) {
     return () => {
       cancelled = true;
     };
-  }, [selectedDate, onDateChange, yesterday]);
+  }, [selectedDate, onDateChange, today]);
 
   const handleDateSelect = (date: Date | undefined) => {
     onDateChange(date);
@@ -94,7 +94,7 @@ export function DatePicker({ selectedDate, onDateChange }: DatePickerProps) {
             mode="single"
             selected={selectedDate}
             onSelect={handleDateSelect}
-            disabled={(date) => date > yesterday}
+            disabled={(date) => date > today}
             showOutsideDays={false}
             captionLayout="dropdown"
             startMonth={new Date(2022, 0)}

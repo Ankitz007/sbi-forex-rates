@@ -32,6 +32,7 @@ const CountryMap: Record<string, string> = {
   THB: "TH",
   TRY: "TR",
   ZAR: "ZA",
+  IDR: "ID",
 };
 
 // Get country code for a currency ticker

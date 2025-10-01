@@ -27,7 +27,7 @@ export function NotesCallout({ data }: NotesCalloutProps) {
             Forex handling branch of SBI.
           </div>
           <div>
-            • JAPANESE YEN (JPY), THAI BAHT (THB) & KOREAN WON (KRW) are quoted
+            • JAPANESE YEN (JPY), INDONESIAN RUPIAH (IDR), THAI BAHT (THB) & KOREAN WON (KRW) are quoted
             in terms of 100 fc units.
           </div>
           <div>

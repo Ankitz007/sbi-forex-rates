@@ -31,7 +31,7 @@ interface ForexTableProps {
 type SortField = keyof ForexRateResponse;
 type SortDirection = "asc" | "desc";
 
-const ITEMS_PER_PAGE = 10;
+const ITEMS_PER_PAGE = 11;
 const PRIORITY_CURRENCIES = ["USD", "EUR", "GBP", "JPY"];
 
 export function ForexTable({ data, searchTerm }: ForexTableProps) {
